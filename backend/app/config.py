@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     app_name: str = "OpenLecture"
     debug: bool = True
     log_level: str = "INFO"
-    cors_origins: str = "http://localhost:5173"
+    cors_origins: str = "*"
 
     # DashScope (single key for both ASR + MT)
     dashscope_api_key: str = ""
