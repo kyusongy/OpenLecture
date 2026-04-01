@@ -5,10 +5,12 @@ import CourseDetail from "./pages/CourseDetail";
 import LiveLecture from "./pages/LiveLecture";
 import LectureDetail from "./pages/LectureDetail";
 import Settings from "./pages/Settings";
+import SetupPage from "./pages/SetupPage";
 
 export default function App() {
   return (
     <Routes>
+      <Route path="/setup" element={<SetupPage />} />
       <Route element={<AppLayout />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/courses/:courseId" element={<CourseDetail />} />

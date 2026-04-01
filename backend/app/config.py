@@ -1,3 +1,5 @@
+import os
+
 from pydantic_settings import BaseSettings
 
 
@@ -13,14 +15,28 @@ class Settings(BaseSettings):
     # "international" (Singapore, default) or "china" (Beijing)
     dashscope_endpoint: str = "international"
 
+    # "desktop" when running inside Tauri, empty otherwise
+    openlecture_app_mode: str = ""
+
     # Where lecture data is stored
-    data_dir: str = "./data"
+    data_dir: str = ""
 
     model_config = {
         "env_file": ("../.env", ".env"),
         "env_file_encoding": "utf-8",
         "extra": "ignore",
     }
+
+    def model_post_init(self, __context) -> None:
+        if not self.data_dir:
+            if self.openlecture_app_mode == "desktop":
+                self.data_dir = os.path.join(
+                    os.path.expanduser("~/Library/Application Support"),
+                    "OpenLecture",
+                    "data",
+                )
+            else:
+                self.data_dir = "./data"
 
     @property
     def dashscope_ws_base(self) -> str:

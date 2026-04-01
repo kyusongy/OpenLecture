@@ -119,5 +119,17 @@
     "search": "搜索",
     "noResults": "无结果",
     "language": "语言"
+  },
+  "setup": {
+    "title": "欢迎使用 OpenLecture",
+    "subtitle": "输入您的 DashScope API 密钥开始使用",
+    "apiKeyLabel": "DashScope API 密钥",
+    "apiKeyPlaceholder": "sk-...",
+    "endpointLabel": "区域",
+    "endpointInternational": "国际版（新加坡）",
+    "endpointChina": "中国版（北京）",
+    "getStarted": "开始使用",
+    "getApiKey": "获取免费 API 密钥",
+    "apiKeyHelp": "OpenLecture 使用 DashScope 进行语音识别和翻译。您的密钥仅存储在本地。"
   }
 }

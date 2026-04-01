@@ -15,3 +15,12 @@ def test_settings_update(client):
     assert r.json()["default_target_language"] == "JA"
     # other fields unchanged
     assert r.json()["default_source_language"] == "EN"
+
+
+def test_settings_update_endpoint(client):
+    from app.config import settings as app_settings
+
+    r = client.put("/api/settings/", json={"dashscope_endpoint": "china"})
+    assert r.status_code == 200
+    assert app_settings.dashscope_endpoint == "china"
+    app_settings.dashscope_endpoint = "international"

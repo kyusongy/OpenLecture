@@ -1,6 +1,10 @@
 import type { Course, Lecture, TranscriptLine, AppSettings } from "../types";
 
-const BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
+let BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
+
+export function initApi(port: number) {
+  BASE_URL = `http://localhost:${port}`;
+}
 
 export class ApiError extends Error {
   status: number;

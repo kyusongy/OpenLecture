@@ -10,4 +10,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    strictPort: true,
+    port: 5173,
+  },
+  build: {
+    rollupOptions: {
+      external: ["@tauri-apps/api/core"],
+    },
+  },
 });

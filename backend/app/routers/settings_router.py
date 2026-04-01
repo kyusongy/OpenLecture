@@ -35,4 +35,7 @@ def update_settings(body: SettingsUpdate) -> SettingsResponse:
     if body.dashscope_api_key:
         settings.dashscope_api_key = body.dashscope_api_key
 
+    if body.dashscope_endpoint:
+        settings.dashscope_endpoint = body.dashscope_endpoint
+
     return get_settings()
