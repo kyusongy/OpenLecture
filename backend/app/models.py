@@ -68,6 +68,7 @@ class SettingsResponse(BaseModel):
 
 class SettingsUpdate(BaseModel):
     dashscope_api_key: str | None = None
+    dashscope_endpoint: str | None = None
     default_source_language: str | None = None
     default_target_language: str | None = None
 

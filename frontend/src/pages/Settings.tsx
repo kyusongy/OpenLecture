@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ExternalLink, Check } from "lucide-react";
+import { openExternal } from "@/lib/tauri";
 import { useSettings } from "@/hooks/useSettings";
 import { useLanguagePairs } from "@/hooks/useLanguagePairs";
 import { Button } from "@/components/ui/button";
@@ -92,15 +93,14 @@ export default function Settings() {
             <p className="text-sm text-muted-foreground">
               {t("settings.apiKeyHelp")}
             </p>
-            <a
-              href="https://modelstudio.console.aliyun.com/ap-southeast-1?tab=dashboard#/api-key"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+            <button
+              type="button"
+              onClick={() => openExternal("https://modelstudio.console.aliyun.com/ap-southeast-1?tab=dashboard#/api-key")}
+              className="inline-flex items-center gap-1 text-sm text-primary hover:underline cursor-pointer"
             >
               {t("settings.apiKeyLink")}
               <ExternalLink className="h-3 w-3" />
-            </a>
+            </button>
           </CardContent>
         </Card>
 

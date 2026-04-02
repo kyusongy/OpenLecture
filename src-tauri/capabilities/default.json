@@ -1,0 +1,18 @@
+{
+  "identifier": "default",
+  "description": "Default permissions for OpenLecture",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "shell:allow-spawn",
+    "shell:allow-open",
+    "shell:allow-stdin-write",
+    "shell:allow-kill",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        { "name": "openlecture-server", "sidecar": true }
+      ]
+    }
+  ]
+}

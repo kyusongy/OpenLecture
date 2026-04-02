@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { LayoutDashboard, Settings, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { LayoutDashboard, Settings, PanelLeftClose, PanelLeftOpen, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import LanguageToggle from "@/components/LanguageToggle";
+import AppIcon from "@/components/AppIcon";
+import { openExternal } from "@/lib/tauri";
 
 export function AppLayout() {
   const location = useLocation();
@@ -42,9 +44,7 @@ export function AppLayout() {
             collapsed ? "px-4 justify-center" : "px-6 gap-3"
           )}
         >
-          <div className="shrink-0 h-9 w-9 rounded-xl bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">OL</span>
-          </div>
+          <AppIcon size={36} />
           {!collapsed && (
             <div className="leading-tight overflow-hidden whitespace-nowrap animate-fade-in">
               <p className="text-lg font-bold text-foreground tracking-tight">
@@ -83,13 +83,23 @@ export function AppLayout() {
           })}
         </ul>
 
-        {/* Language toggle at bottom */}
+        {/* Footer */}
         <div
           className={cn(
-            "border-t border-sidebar-border p-3",
-            collapsed ? "flex justify-center" : ""
+            "border-t border-sidebar-border p-3 space-y-2",
+            collapsed ? "flex flex-col items-center" : ""
           )}
         >
+          <button
+            onClick={() => openExternal("https://easypine-ai.com/")}
+            className={cn(
+              "flex items-center rounded-lg px-2 py-1.5 text-xs text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors cursor-pointer w-full",
+              collapsed ? "justify-center px-0" : "gap-1.5"
+            )}
+          >
+            <ExternalLink className="h-3 w-3 shrink-0" />
+            {!collapsed && <span>{t("easypine.sidebarLink")}</span>}
+          </button>
           <LanguageToggle />
         </div>
       </nav>

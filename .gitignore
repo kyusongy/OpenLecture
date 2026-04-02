@@ -21,3 +21,12 @@ dist/
 
 # Data
 data/
+
+# Tauri
+src-tauri/target/
+src-tauri/binaries/openlecture-server-*
+src-tauri/gen/
+
+# Build artifacts
+icon_source.png
+docs/superpowers/

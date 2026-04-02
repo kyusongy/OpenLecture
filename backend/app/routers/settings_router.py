@@ -31,8 +31,10 @@ def update_settings(body: SettingsUpdate) -> SettingsResponse:
     if updates:
         store.update_settings(updates)
 
-    # Hot-reload API key into the running settings singleton
+    # Hot-reload API key and endpoint into the running settings singleton
     if body.dashscope_api_key:
         settings.dashscope_api_key = body.dashscope_api_key
+    if body.dashscope_endpoint:
+        settings.dashscope_endpoint = body.dashscope_endpoint
 
     return get_settings()

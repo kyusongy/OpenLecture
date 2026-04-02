@@ -1,4 +1,16 @@
 {
+  "setup": {
+    "title": "Welcome to OpenLecture",
+    "subtitle": "Enter your DashScope API key to get started",
+    "apiKeyLabel": "DashScope API Key",
+    "apiKeyPlaceholder": "sk-...",
+    "endpointLabel": "Region",
+    "endpointInternational": "International (Singapore)",
+    "endpointChina": "China (Beijing)",
+    "getStarted": "Get Started",
+    "getApiKey": "Get a free API key",
+    "apiKeyHelp": "OpenLecture uses DashScope for speech recognition and translation. Your key stays on your device."
+  },
   "nav": {
     "dashboard": "Dashboard",
     "settings": "Settings",
@@ -119,5 +131,9 @@
     "search": "Search",
     "noResults": "No results",
     "language": "Language"
+  },
+  "easypine": {
+    "setupHint": "Want to skip the setup? Try EasyPine — no API key needed, with richer agent capabilities.",
+    "sidebarLink": "Try EasyPine"
   }
 }

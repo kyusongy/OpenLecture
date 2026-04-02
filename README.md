@@ -8,6 +8,14 @@
 
 <a name="english"></a>
 
+## Download
+
+**macOS (Apple Silicon):** [Download the latest release](https://github.com/kyusongy/OpenLecture/releases/latest)
+
+Just download the `.dmg`, drag to Applications, and launch. No developer tools needed. On first launch, you'll be prompted to enter a free DashScope API key.
+
+> Unsigned app — right-click the app and select "Open" on first launch to bypass Gatekeeper.
+
 ## Features
 
 - Real-time speech-to-text transcription (25+ languages)
@@ -18,18 +26,20 @@
 - Single API key setup (DashScope)
 - Bilingual interface (English & Chinese)
 
-## Quickstart
+## Getting a DashScope API Key
 
-### 1. Clone & configure
+1. Go to [Alibaba Cloud Model Studio — API Keys](https://modelstudio.console.aliyun.com/ap-southeast-1?tab=dashboard#/api-key) (Singapore region)
+2. Create an Alibaba Cloud account or sign in
+3. Generate a new API key
+4. Paste it into the setup screen when you launch OpenLecture
 
-```bash
-git clone https://github.com/kyusongy/OpenLecture.git
-cd OpenLecture
-cp .env.example .env
-# Edit .env and add your DashScope API key
-```
+DashScope offers a free tier with generous usage limits.
 
-### 2. Start the backend
+## Development
+
+If you want to run from source or contribute:
+
+### Backend
 
 ```bash
 cd backend
@@ -37,7 +47,7 @@ uv sync
 uv run uvicorn app.main:app --reload
 ```
 
-### 3. Start the frontend
+### Frontend
 
 ```bash
 cd frontend
@@ -49,14 +59,15 @@ Open [http://localhost:5173](http://localhost:5173)
 
 > **Docker alternative:** `docker compose up` runs both services — frontend at [http://localhost:3000](http://localhost:3000).
 
-## Getting a DashScope API Key
+### Building the Desktop App
 
-1. Go to [Alibaba Cloud Model Studio — API Keys](https://modelstudio.console.aliyun.com/ap-southeast-1?tab=dashboard#/api-key) (Singapore region)
-2. Create an Alibaba Cloud account or sign in
-3. Generate a new API key
-4. Copy the key and paste it into your `.env` file or the Settings page
+Prerequisites: Rust, Node.js, Python 3.11+, [uv](https://docs.astral.sh/uv/), [Tauri CLI](https://tauri.app/start/)
 
-DashScope offers a free tier with generous usage limits.
+```bash
+./scripts/build.sh
+```
+
+The `.dmg` is output to `src-tauri/target/release/bundle/dmg/`.
 
 ## Supported Languages
 
@@ -88,16 +99,17 @@ Chinese, English, Japanese, Korean, French, German, Spanish, Portuguese, Russian
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `DASHSCOPE_API_KEY` | *(required)* | Your DashScope API key |
-| `DASHSCOPE_ENDPOINT` | `international` | `international` (Singapore) or `china` (Beijing). Use international for best performance outside mainland China. |
+| `DASHSCOPE_ENDPOINT` | `international` | `international` (Singapore) or `china` (Beijing) |
 | `DATA_DIR` | `./data` | Where lecture data is stored |
-| `CORS_ORIGINS` | `http://localhost:5173` | Allowed frontend origins |
+| `CORS_ORIGINS` | `*` | Allowed frontend origins |
 
 ## Tech Stack
 
+- **Desktop:** Tauri v2 (Rust + native webview)
 - **Frontend:** React 19, TypeScript, Vite, Tailwind CSS
 - **Backend:** Python, FastAPI, Uvicorn
-- **Transcription:** Qwen3 ASR Flash Realtime
-- **Translation:** Qwen MT Lite
+- **Transcription:** Qwen3 ASR Flash Realtime (DashScope)
+- **Translation:** Qwen MT Lite (DashScope)
 - **Storage:** Local filesystem (JSON + Markdown)
 
 ## License
@@ -120,6 +132,14 @@ This project is licensed under the [AGPL-3.0](LICENSE). You are free to use, mod
 
 ---
 
+## 下载
+
+**macOS (Apple Silicon):** [下载最新版本](https://github.com/kyusongy/OpenLecture/releases/latest)
+
+下载 `.dmg` 文件，拖入"应用程序"文件夹，启动即可。无需安装开发工具。首次启动时会提示输入免费的 DashScope API 密钥。
+
+> 未签名应用 — 首次打开时请右键点击应用，选择"打开"以绕过 Gatekeeper。
+
 ## 功能特点
 
 - 实时语音转文字（支持 25+ 种语言）
@@ -130,18 +150,20 @@ This project is licensed under the [AGPL-3.0](LICENSE). You are free to use, mod
 - 仅需一个 API 密钥（DashScope）
 - 双语界面（中文 & 英文）
 
-## 快速开始
+## 获取 DashScope API 密钥
 
-### 1. 克隆并配置
+1. 前往 [阿里云百炼 — API 密钥](https://modelstudio.console.aliyun.com/ap-southeast-1?tab=dashboard#/api-key)（新加坡节点）
+2. 创建阿里云账号或登录
+3. 生成新的 API 密钥
+4. 在 OpenLecture 启动时的设置界面中粘贴密钥
 
-```bash
-git clone https://github.com/kyusongy/OpenLecture.git
-cd OpenLecture
-cp .env.example .env
-# 编辑 .env 文件，填入你的 DashScope API 密钥
-```
+DashScope 提供免费额度，用量十分充裕。
 
-### 2. 启动后端
+## 开发
+
+如果你想从源码运行或参与贡献：
+
+### 后端
 
 ```bash
 cd backend
@@ -149,7 +171,7 @@ uv sync
 uv run uvicorn app.main:app --reload
 ```
 
-### 3. 启动前端
+### 前端
 
 ```bash
 cd frontend
@@ -161,14 +183,15 @@ npm run dev
 
 > **Docker 方式：** 运行 `docker compose up` 即可同时启动前后端 — 前端地址 [http://localhost:3000](http://localhost:3000)。
 
-## 获取 DashScope API 密钥
+### 构建桌面应用
 
-1. 前往 [阿里云百炼 — API 密钥](https://modelstudio.console.aliyun.com/ap-southeast-1?tab=dashboard#/api-key)（新加坡节点）
-2. 创建阿里云账号或登录
-3. 生成新的 API 密钥
-4. 复制密钥，粘贴到 `.env` 文件或设置页面中
+前置要求：Rust、Node.js、Python 3.11+、[uv](https://docs.astral.sh/uv/)、[Tauri CLI](https://tauri.app/start/)
 
-DashScope 提供免费额度，用量十分充裕。
+```bash
+./scripts/build.sh
+```
+
+`.dmg` 文件输出到 `src-tauri/target/release/bundle/dmg/`。
 
 ## 支持的语言
 
@@ -200,16 +223,17 @@ DashScope 提供免费额度，用量十分充裕。
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
 | `DASHSCOPE_API_KEY` | *（必填）* | 你的 DashScope API 密钥 |
-| `DASHSCOPE_ENDPOINT` | `international` | `international`（新加坡）或 `china`（北京）。中国大陆以外建议使用 international。 |
+| `DASHSCOPE_ENDPOINT` | `international` | `international`（新加坡）或 `china`（北京） |
 | `DATA_DIR` | `./data` | 讲座数据存储位置 |
-| `CORS_ORIGINS` | `http://localhost:5173` | 允许的前端来源地址 |
+| `CORS_ORIGINS` | `*` | 允许的前端来源地址 |
 
 ## 技术栈
 
+- **桌面端：** Tauri v2（Rust + 原生 WebView）
 - **前端：** React 19、TypeScript、Vite、Tailwind CSS
 - **后端：** Python、FastAPI、Uvicorn
-- **转录：** Qwen3 ASR Flash Realtime
-- **翻译：** Qwen MT Lite
+- **转录：** Qwen3 ASR Flash Realtime（DashScope）
+- **翻译：** Qwen MT Lite（DashScope）
 - **存储：** 本地文件系统（JSON + Markdown）
 
 ## 许可证
