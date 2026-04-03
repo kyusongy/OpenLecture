@@ -57,6 +57,8 @@ where files live.
 
 ## Development
 
+Python baseline: `3.10.13`
+
 ### Backend
 
 ```bash
@@ -83,6 +85,11 @@ npm run dev
 
 [EasyPine](https://easypine-ai.com) adds AI note generation, grounded lecture
 chat, spaced review, uploads, billing, and cloud sync.
+
+## Contributor Notes
+
+- Edition boundary and feature split: [`docs/edition-matrix.md`](docs/edition-matrix.md)
+- Contributor guide and source-of-truth notes: [`docs/contributor-guide.md`](docs/contributor-guide.md)
 
 ---
 
