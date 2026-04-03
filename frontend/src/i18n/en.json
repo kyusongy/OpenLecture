@@ -12,7 +12,10 @@
     "apiKeyHelp": "OpenLecture uses DashScope for speech recognition and translation. Your key stays on your device.",
     "localPromise": "OpenLecture keeps your lectures, transcripts, and notes on this device. There is no account, cloud sync, or hidden upload pipeline in the free app.",
     "localPathLabel": "Local data folder",
-    "easypineHint": "Need AI notes, grounded Q&A, review, and multi-device sync later?"
+    "easypineHint": "Need AI notes, grounded Q&A, review, and multi-device sync later?",
+    "backendErrorTitle": "Backend connection failed",
+    "backendErrorDesc": "OpenLecture could not talk to the local backend. Restart the desktop app or backend service, then try again.",
+    "nextStepHint": "After saving, OpenLecture will take you straight into creating your first course."
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -28,7 +31,9 @@
     "deleteConfirm": "Are you sure you want to delete this course? All lectures will be lost.",
     "courseName": "Course Name",
     "courseNamePlaceholder": "e.g. Introduction to Computer Science",
-    "lectureCount": "{{count}} lecture(s)"
+    "lectureCount": "{{count}} lecture(s)",
+    "starterTitle": "Create your first course",
+    "starterBody": "OpenLecture keeps the flow short: create one course, then start your first live lecture right away."
   },
   "course": {
     "title": "Lectures",
@@ -44,7 +49,9 @@
     "startedAt": "Started",
     "status": "Status",
     "live": "Live",
-    "complete": "Complete"
+    "complete": "Complete",
+    "starterTitle": "Start your first lecture",
+    "starterBody": "This course is ready. Create a lecture and jump straight into live transcription."
   },
   "recording": {
     "start": "Start Recording",

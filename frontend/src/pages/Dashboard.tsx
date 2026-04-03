@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Plus, Trash2, BookOpen, AlertTriangle } from "lucide-react";
 import { getCourses, createCourse, deleteCourse } from "@/lib/api";
@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/dialog";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useTranslation();
   const { settings } = useSettings();
   const [courses, setCourses] = useState<Course[]>([]);
@@ -39,6 +41,15 @@ export default function Dashboard() {
       .finally(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    if (loading) return;
+    if (searchParams.get("start") !== "course") return;
+    if (courses.length === 0) {
+      setCreateOpen(true);
+    }
+    setSearchParams({}, { replace: true });
+  }, [loading, courses.length, searchParams, setSearchParams]);
+
   const handleCreate = async () => {
     if (!name.trim()) return;
     setCreating(true);
@@ -47,6 +58,9 @@ export default function Dashboard() {
       setCourses((prev) => [...prev, course]);
       setName("");
       setCreateOpen(false);
+      if (courses.length === 0) {
+        navigate(`/courses/${course.id}?start=lecture`);
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -91,7 +105,21 @@ export default function Dashboard() {
       {loading ? (
         <p className="text-muted-foreground">{t("common.loading")}</p>
       ) : courses.length === 0 ? (
-        <p className="text-muted-foreground">{t("dashboard.noCourses")}</p>
+        <div className="rounded-xl border border-border bg-card p-8 text-center">
+          <BookOpen className="mx-auto h-8 w-8 text-primary/70" />
+          <h2 className="mt-3 text-lg font-semibold text-foreground">
+            {t("dashboard.starterTitle")}
+          </h2>
+          <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
+            {t("dashboard.starterBody")}
+          </p>
+          <div className="mt-5">
+            <Button onClick={() => setCreateOpen(true)} className="gap-2">
+              <Plus className="h-4 w-4" />
+              {t("dashboard.createCourse")}
+            </Button>
+          </div>
+        </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {courses.map((course) => (

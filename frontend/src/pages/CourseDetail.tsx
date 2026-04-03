@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Plus, Trash2, ArrowLeft, Clock } from "lucide-react";
 import { getLectures, deleteLecture } from "@/lib/api";
@@ -26,6 +26,7 @@ import {
 export default function CourseDetail() {
   const { courseId } = useParams<{ courseId: string }>();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useTranslation();
   const [lectures, setLectures] = useState<Lecture[]>([]);
   const [loading, setLoading] = useState(true);
@@ -40,6 +41,15 @@ export default function CourseDetail() {
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [courseId]);
+
+  useEffect(() => {
+    if (loading) return;
+    if (searchParams.get("start") !== "lecture") return;
+    if (lectures.length === 0) {
+      setCreateOpen(true);
+    }
+    setSearchParams({}, { replace: true });
+  }, [loading, lectures.length, searchParams, setSearchParams]);
 
   const handleCreate = () => {
     if (!title.trim() || !courseId) return;
@@ -81,7 +91,21 @@ export default function CourseDetail() {
       {loading ? (
         <p className="text-muted-foreground">{t("common.loading")}</p>
       ) : lectures.length === 0 ? (
-        <p className="text-muted-foreground">{t("course.noLectures")}</p>
+        <div className="rounded-xl border border-border bg-card p-8 text-center">
+          <Clock className="mx-auto h-8 w-8 text-primary/70" />
+          <h2 className="mt-3 text-lg font-semibold text-foreground">
+            {t("course.starterTitle")}
+          </h2>
+          <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
+            {t("course.starterBody")}
+          </p>
+          <div className="mt-5">
+            <Button onClick={() => setCreateOpen(true)} className="gap-2">
+              <Plus className="h-4 w-4" />
+              {t("course.newLecture")}
+            </Button>
+          </div>
+        </div>
       ) : (
         <div className="space-y-3">
           {lectures.map((lecture) => (

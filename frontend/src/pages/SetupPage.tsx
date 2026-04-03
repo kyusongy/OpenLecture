@@ -31,10 +31,19 @@ export default function SetupPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [appSettings, setAppSettings] = useState<AppSettings | null>(null);
+  const [bootstrapError, setBootstrapError] = useState("");
 
   useEffect(() => {
-    getSettings().then(setAppSettings).catch(console.error);
-  }, []);
+    getSettings()
+      .then((data) => {
+        setAppSettings(data);
+        setEndpoint(data.dashscope_endpoint || "international");
+      })
+      .catch((err) => {
+        console.error(err);
+        setBootstrapError(t("setup.backendErrorDesc"));
+      });
+  }, [t]);
 
   const handleSubmit = async () => {
     if (!apiKey.trim()) {
@@ -56,7 +65,7 @@ export default function SetupPage() {
         dashscope_endpoint: endpoint,
       });
 
-      navigate("/");
+      navigate("/?start=course");
     } catch (err) {
       setError(String(err));
     } finally {
@@ -116,6 +125,17 @@ export default function SetupPage() {
             {t("setup.apiKeyHelp")}
           </p>
 
+          {bootstrapError && (
+            <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3">
+              <div className="text-sm font-medium text-foreground">
+                {t("setup.backendErrorTitle")}
+              </div>
+              <div className="mt-1 text-xs text-muted-foreground">
+                {bootstrapError}
+              </div>
+            </div>
+          )}
+
           <div className="rounded-lg border border-border bg-muted/30 p-3 space-y-2">
             <div className="flex items-start gap-2">
               <ShieldCheck className="mt-0.5 h-4 w-4 text-primary shrink-0" />
@@ -134,6 +154,9 @@ export default function SetupPage() {
                 </div>
               </div>
             )}
+            <p className="text-xs text-muted-foreground">
+              {t("setup.nextStepHint")}
+            </p>
           </div>
 
           <button

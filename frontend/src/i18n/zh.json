@@ -12,7 +12,10 @@
     "apiKeyHelp": "OpenLecture 使用 DashScope 进行语音识别和翻译。您的密钥仅存储在本地。",
     "localPromise": "OpenLecture 会把讲座、转录和笔记保存在这台设备上。免费版没有账号系统、云同步，也不会偷偷上传你的数据。",
     "localPathLabel": "本地数据目录",
-    "easypineHint": "如果之后需要 AI 笔记、可溯源问答、复习和多设备同步，可以再升级。"
+    "easypineHint": "如果之后需要 AI 笔记、可溯源问答、复习和多设备同步，可以再升级。",
+    "backendErrorTitle": "本地后端连接失败",
+    "backendErrorDesc": "OpenLecture 当前无法连接本地后端。请重启桌面应用或后端服务后再试。",
+    "nextStepHint": "保存后会直接带你去创建第一门课程。"
   },
   "nav": {
     "dashboard": "仪表板",
@@ -28,7 +31,9 @@
     "deleteConfirm": "确定要删除此课程吗？所有讲座记录将被清除。",
     "courseName": "课程名称",
     "courseNamePlaceholder": "例如：计算机科学导论",
-    "lectureCount": "{{count}} 节课"
+    "lectureCount": "{{count}} 节课",
+    "starterTitle": "先创建第一门课程",
+    "starterBody": "OpenLecture 保持最短路径：先建一个课程，然后立刻开始第一节实时课堂。"
   },
   "course": {
     "title": "讲座列表",
@@ -44,7 +49,9 @@
     "startedAt": "开始时间",
     "status": "状态",
     "live": "直播中",
-    "complete": "已完成"
+    "complete": "已完成",
+    "starterTitle": "开始第一节课",
+    "starterBody": "这个课程已经准备好了。新建讲座后就能立刻进入实时转录。"
   },
   "recording": {
     "start": "开始录音",
