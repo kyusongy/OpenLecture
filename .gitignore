@@ -2,6 +2,7 @@
 __pycache__/
 *.pyc
 .venv/
+.OpenLecture/
 *.egg-info/
 
 # Node

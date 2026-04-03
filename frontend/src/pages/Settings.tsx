@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ExternalLink, Check } from "lucide-react";
-import { openExternal } from "@/lib/tauri";
+import { ExternalLink, Check, Copy, FolderOpen, HardDrive } from "lucide-react";
+import { isTauri, openExternal } from "@/lib/tauri";
 import { useSettings } from "@/hooks/useSettings";
 import { useLanguagePairs } from "@/hooks/useLanguagePairs";
 import { Button } from "@/components/ui/button";
@@ -28,16 +28,17 @@ export default function Settings() {
   const [apiKey, setApiKey] = useState("");
   const [sourceLang, setSourceLang] = useState("");
   const [targetLang, setTargetLang] = useState("");
+  const [endpoint, setEndpoint] = useState("international");
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [initialized, setInitialized] = useState(false);
+  const [copiedPath, setCopiedPath] = useState(false);
 
-  // Initialize form from settings once loaded
-  if (settings && !initialized) {
+  useEffect(() => {
+    if (!settings) return;
     setSourceLang(settings.default_source_language || "");
     setTargetLang(settings.default_target_language || "");
-    setInitialized(true);
-  }
+    setEndpoint(settings.dashscope_endpoint || "international");
+  }, [settings]);
 
   const handleSave = async () => {
     setSaving(true);
@@ -46,6 +47,7 @@ export default function Settings() {
       const updates: Record<string, string> = {
         default_source_language: sourceLang,
         default_target_language: targetLang,
+        dashscope_endpoint: endpoint,
       };
       if (apiKey) {
         updates.dashscope_api_key = apiKey;
@@ -58,6 +60,26 @@ export default function Settings() {
       console.error(err);
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleCopyPath = async () => {
+    if (!settings?.data_dir) return;
+    try {
+      await navigator.clipboard.writeText(settings.data_dir);
+      setCopiedPath(true);
+      window.setTimeout(() => setCopiedPath(false), 2000);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleOpenFolder = async () => {
+    if (!settings?.data_dir || !isTauri) return;
+    try {
+      await openExternal(settings.data_dir);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -104,6 +126,30 @@ export default function Settings() {
           </CardContent>
         </Card>
 
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">{t("settings.region")}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <Select value={endpoint} onValueChange={setEndpoint}>
+              <SelectTrigger className="w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="international">
+                  {t("settings.endpointInternational")}
+                </SelectItem>
+                <SelectItem value="china">
+                  {t("settings.endpointChina")}
+                </SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-sm text-muted-foreground">
+              {t("settings.regionHelp")}
+            </p>
+          </CardContent>
+        </Card>
+
         {/* Language defaults */}
         <Card>
           <CardHeader>
@@ -146,6 +192,69 @@ export default function Settings() {
                 </Select>
               </div>
             </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <HardDrive className="h-4 w-4 text-primary" />
+              {t("settings.localStorage")}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="rounded-lg border border-border bg-muted/30 px-3 py-3 text-sm">
+              <div className="font-medium text-foreground">
+                {t("settings.storageModeLocal")}
+              </div>
+              <div className="mt-1 break-all text-muted-foreground">
+                {settings?.data_dir}
+              </div>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              {t("settings.dataDirHelp")}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleCopyPath}
+                className="gap-2"
+              >
+                <Copy className="h-4 w-4" />
+                {copiedPath ? t("settings.pathCopied") : t("settings.copyPath")}
+              </Button>
+              {isTauri && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleOpenFolder}
+                  className="gap-2"
+                >
+                  <FolderOpen className="h-4 w-4" />
+                  {t("settings.openFolder")}
+                </Button>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">{t("settings.moreWithEasyPine")}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-sm text-muted-foreground">
+              {t("settings.moreWithEasyPineHelp")}
+            </p>
+            <button
+              type="button"
+              onClick={() => openExternal("https://easypine-ai.com/")}
+              className="inline-flex items-center gap-1 text-sm text-primary hover:underline cursor-pointer"
+            >
+              {t("easypine.learnMore")}
+              <ExternalLink className="h-3 w-3" />
+            </button>
           </CardContent>
         </Card>
 
