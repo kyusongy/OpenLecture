@@ -30,4 +30,7 @@ export interface AppSettings {
   api_key_configured: boolean;
   default_source_language: string;
   default_target_language: string;
+  dashscope_endpoint: string;
+  data_dir: string;
+  storage_mode: string;
 }

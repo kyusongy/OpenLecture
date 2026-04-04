@@ -64,6 +64,9 @@ class SettingsResponse(BaseModel):
     api_key_configured: bool
     default_source_language: str
     default_target_language: str
+    dashscope_endpoint: str
+    data_dir: str
+    storage_mode: str
 
 
 class SettingsUpdate(BaseModel):

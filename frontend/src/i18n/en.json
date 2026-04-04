@@ -9,7 +9,9 @@
     "endpointChina": "China (Beijing)",
     "getStarted": "Get Started",
     "getApiKey": "Get a free API key",
-    "apiKeyHelp": "OpenLecture uses DashScope for speech recognition and translation. Your key stays on your device."
+    "apiKeyHelp": "OpenLecture uses DashScope for speech recognition and translation. Your key stays on your device.",
+    "localPromise": "OpenLecture keeps your lectures, transcripts, and notes on this device. There is no account, cloud sync, or hidden upload pipeline in the free app.",
+    "localPathLabel": "Local data folder"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -81,11 +83,20 @@
     "apiKeyPlaceholder": "sk-xxxxxxxxxxxxxxxx",
     "apiKeyHelp": "Get your API key from the DashScope console. One key works for both transcription and translation.",
     "apiKeyLink": "Get API Key",
+    "region": "DashScope Region",
+    "regionHelp": "Use the region that matches your DashScope account and network path.",
+    "endpointInternational": "International (Singapore)",
+    "endpointChina": "China (Beijing)",
     "defaultSourceLanguage": "Default Lecture Language",
     "defaultTargetLanguage": "Default Translation Language",
     "saved": "Settings saved",
+    "localStorage": "Local Storage",
     "dataDir": "Data Directory",
-    "dataDirHelp": "Where your lecture data is stored on disk."
+    "dataDirHelp": "Transcripts, notes, and course files are stored here on disk.",
+    "storageModeLocal": "Local files only",
+    "copyPath": "Copy Path",
+    "pathCopied": "Path copied",
+    "openFolder": "Open Folder"
   },
   "lang": {
     "ZH": "Chinese (Mandarin)",

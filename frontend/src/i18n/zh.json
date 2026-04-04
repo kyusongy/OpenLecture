@@ -9,7 +9,9 @@
     "endpointChina": "中国版（北京）",
     "getStarted": "开始使用",
     "getApiKey": "获取免费 API 密钥",
-    "apiKeyHelp": "OpenLecture 使用 DashScope 进行语音识别和翻译。您的密钥仅存储在本地。"
+    "apiKeyHelp": "OpenLecture 使用 DashScope 进行语音识别和翻译。您的密钥仅存储在本地。",
+    "localPromise": "OpenLecture 会把讲座、转录和笔记保存在这台设备上。免费版没有账号系统、云同步，也不会偷偷上传你的数据。",
+    "localPathLabel": "本地数据目录"
   },
   "nav": {
     "dashboard": "仪表板",
@@ -81,11 +83,20 @@
     "apiKeyPlaceholder": "sk-xxxxxxxxxxxxxxxx",
     "apiKeyHelp": "从 DashScope 控制台获取您的 API 密钥。一个密钥同时适用于转录和翻译功能。",
     "apiKeyLink": "获取 API 密钥",
+    "region": "DashScope 区域",
+    "regionHelp": "请选择与你的 DashScope 账户和网络路径一致的区域。",
+    "endpointInternational": "国际版（新加坡）",
+    "endpointChina": "中国版（北京）",
     "defaultSourceLanguage": "默认讲座语言",
     "defaultTargetLanguage": "默认翻译语言",
     "saved": "设置已保存",
+    "localStorage": "本地存储",
     "dataDir": "数据目录",
-    "dataDirHelp": "讲座数据在磁盘上的存储位置。"
+    "dataDirHelp": "你的转录、笔记和课程文件都会保存在这里。",
+    "storageModeLocal": "仅保存为本地文件",
+    "copyPath": "复制路径",
+    "pathCopied": "路径已复制",
+    "openFolder": "打开文件夹"
   },
   "lang": {
     "ZH": "中文（普通话）",
