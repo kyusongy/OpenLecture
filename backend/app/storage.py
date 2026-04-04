@@ -238,6 +238,7 @@ class StorageService:
         "version": 1,
         "default_source_language": "EN",
         "default_target_language": "ZH",
+        "dashscope_endpoint": "international",
     }
 
     def get_settings(self) -> dict:

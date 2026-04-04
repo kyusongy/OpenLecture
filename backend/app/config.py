@@ -1,3 +1,4 @@
+import json
 import os
 
 from pydantic_settings import BaseSettings
@@ -35,6 +36,17 @@ class Settings(BaseSettings):
                 )
             else:
                 self.data_dir = "./data"
+
+        settings_path = os.path.join(self.data_dir, "settings.json")
+        if self.dashscope_endpoint == "international" and os.path.exists(settings_path):
+            try:
+                with open(settings_path, encoding="utf-8") as f:
+                    stored = json.load(f)
+                stored_endpoint = stored.get("dashscope_endpoint")
+                if stored_endpoint in {"international", "china"}:
+                    self.dashscope_endpoint = stored_endpoint
+            except (OSError, ValueError, TypeError):
+                pass
 
     @property
     def dashscope_ws_base(self) -> str:
