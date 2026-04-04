@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ExternalLink } from "lucide-react";
@@ -20,7 +20,7 @@ import {
 import { isTauri, setConfig, openExternal } from "@/lib/tauri";
 import AppIcon from "@/components/AppIcon";
 import LanguageToggle from "@/components/LanguageToggle";
-import { updateSettings } from "@/lib/api";
+import { getSettings, updateSettings } from "@/lib/api";
 
 export default function SetupPage() {
   const { t } = useTranslation();
@@ -29,6 +29,16 @@ export default function SetupPage() {
   const [endpoint, setEndpoint] = useState("international");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [bootstrapError, setBootstrapError] = useState("");
+
+  useEffect(() => {
+    getSettings()
+      .then(() => setBootstrapError(""))
+      .catch((err) => {
+        console.error(err);
+        setBootstrapError(t("setup.backendErrorDesc"));
+      });
+  }, [t]);
 
   const handleSubmit = async () => {
     if (!apiKey.trim()) {
@@ -50,7 +60,7 @@ export default function SetupPage() {
         dashscope_endpoint: endpoint,
       });
 
-      navigate("/");
+      navigate("/?start=course");
     } catch (err) {
       setError(String(err));
     } finally {
@@ -109,6 +119,17 @@ export default function SetupPage() {
           <p className="text-xs text-muted-foreground">
             {t("setup.apiKeyHelp")}
           </p>
+
+          {bootstrapError && (
+            <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3">
+              <div className="text-sm font-medium text-foreground">
+                {t("setup.backendErrorTitle")}
+              </div>
+              <div className="mt-1 text-xs text-muted-foreground">
+                {bootstrapError}
+              </div>
+            </div>
+          )}
 
           <button
             type="button"
