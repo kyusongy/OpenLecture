@@ -9,7 +9,9 @@
     "endpointChina": "China (Beijing)",
     "getStarted": "Get Started",
     "getApiKey": "Get a free API key",
-    "apiKeyHelp": "OpenLecture uses DashScope for speech recognition and translation. Your key stays on your device."
+    "apiKeyHelp": "OpenLecture uses DashScope for speech recognition and translation. Your key stays on your device.",
+    "backendErrorTitle": "Backend connection failed",
+    "backendErrorDesc": "OpenLecture could not talk to the local backend. Restart the desktop app or backend service, then try again."
   },
   "nav": {
     "dashboard": "Dashboard",
