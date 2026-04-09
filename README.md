@@ -14,12 +14,6 @@
 
 Just download the `.dmg`, drag to Applications, and launch. No developer tools needed. On first launch, you'll be prompted to enter a free DashScope API key.
 
-> **First launch:** macOS may show "app is damaged" because it's unsigned. Open Terminal and run:
-> ```bash
-> xattr -cr /Applications/OpenLecture.app
-> ```
-> Then launch normally. You only need to do this once.
-
 ## Features
 
 - Real-time speech-to-text transcription (25+ languages)
@@ -141,12 +135,6 @@ This project is licensed under the [AGPL-3.0](LICENSE). You are free to use, mod
 **macOS (Apple Silicon):** [下载最新版本](https://github.com/kyusongy/OpenLecture/releases/latest)
 
 下载 `.dmg` 文件，拖入"应用程序"文件夹，启动即可。无需安装开发工具。首次启动时会提示输入免费的 DashScope API 密钥。
-
-> **首次启动：** macOS 可能提示"应用已损坏"，因为应用未签名。请打开终端运行：
-> ```bash
-> xattr -cr /Applications/OpenLecture.app
-> ```
-> 然后正常启动即可。此操作只需执行一次。
 
 ## 功能特点
 
