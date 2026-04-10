@@ -9,7 +9,9 @@
     "endpointChina": "中国版（北京）",
     "getStarted": "开始使用",
     "getApiKey": "获取免费 API 密钥",
-    "apiKeyHelp": "OpenLecture 使用 DashScope 进行语音识别和翻译。您的密钥仅存储在本地。"
+    "apiKeyHelp": "OpenLecture 使用 DashScope 进行语音识别和翻译。您的密钥仅存储在本地。",
+    "backendErrorTitle": "本地后端连接失败",
+    "backendErrorDesc": "OpenLecture 当前无法连接本地后端。请重启桌面应用或后端服务后再试。"
   },
   "nav": {
     "dashboard": "仪表板",
