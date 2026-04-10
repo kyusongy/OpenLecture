@@ -17,6 +17,9 @@ def get_settings() -> SettingsResponse:
         api_key_configured=bool(settings.dashscope_api_key),
         default_source_language=stored.get("default_source_language", "EN"),
         default_target_language=stored.get("default_target_language", "ZH"),
+        dashscope_endpoint=settings.dashscope_endpoint,
+        data_dir=settings.data_dir,
+        storage_mode="local",
     )
 
 
@@ -28,6 +31,8 @@ def update_settings(body: SettingsUpdate) -> SettingsResponse:
         updates["default_source_language"] = body.default_source_language
     if body.default_target_language is not None:
         updates["default_target_language"] = body.default_target_language
+    if body.dashscope_endpoint is not None:
+        updates["dashscope_endpoint"] = body.dashscope_endpoint
     if updates:
         store.update_settings(updates)
 

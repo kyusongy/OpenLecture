@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, HardDrive, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -20,7 +20,8 @@ import {
 import { isTauri, setConfig, openExternal } from "@/lib/tauri";
 import AppIcon from "@/components/AppIcon";
 import LanguageToggle from "@/components/LanguageToggle";
-import { updateSettings } from "@/lib/api";
+import { getSettings, updateSettings } from "@/lib/api";
+import type { AppSettings } from "@/types";
 
 export default function SetupPage() {
   const { t } = useTranslation();
@@ -29,6 +30,16 @@ export default function SetupPage() {
   const [endpoint, setEndpoint] = useState("international");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [appSettings, setAppSettings] = useState<AppSettings | null>(null);
+
+  useEffect(() => {
+    getSettings()
+      .then((data) => {
+        setAppSettings(data);
+        setEndpoint(data.dashscope_endpoint || "international");
+      })
+      .catch(console.error);
+  }, []);
 
   const handleSubmit = async () => {
     if (!apiKey.trim()) {
@@ -109,6 +120,26 @@ export default function SetupPage() {
           <p className="text-xs text-muted-foreground">
             {t("setup.apiKeyHelp")}
           </p>
+
+          <div className="rounded-lg border border-border bg-muted/30 p-3 space-y-2">
+            <div className="flex items-start gap-2">
+              <ShieldCheck className="mt-0.5 h-4 w-4 text-primary shrink-0" />
+              <p className="text-xs text-muted-foreground">
+                {t("setup.localPromise")}
+              </p>
+            </div>
+            {appSettings?.data_dir && (
+              <div className="flex items-start gap-2">
+                <HardDrive className="mt-0.5 h-4 w-4 text-primary shrink-0" />
+                <div className="text-xs text-muted-foreground">
+                  <div>{t("setup.localPathLabel")}</div>
+                  <div className="break-all text-foreground/80">
+                    {appSettings.data_dir}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
 
           <button
             type="button"
